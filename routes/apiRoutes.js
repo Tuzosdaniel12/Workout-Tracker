@@ -15,7 +15,7 @@ router.get("/api/workouts", async (req, res) =>{
 router.get("/api/workouts/range", async (req, res)=>{
     try {
         
-        const rangeWorkouts = await Workouts.find({});
+        const rangeWorkouts = await Workouts.find({}).limit(5);
 
         res.json(rangeWorkouts)
 
