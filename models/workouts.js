@@ -34,11 +34,23 @@ const WorkoutsSchema = new Schema({
             },
             distance: {
                 type: Number
+            },
+            totalDuration: {
+                type: Number
             } 
         }
     ]
   });
   
+  WorkoutsSchema.methods.totalDuration = async function(collections) {
+
+    this.totalDuration = await collections.filter(collection => collection.exercises[0] !== undefined)
+                                          .map(collection => collection.exercises[0]) 
+                                          .reduce((accumulator, exercise) => accumulator + exercise.duration,0)
+
+    return this.totalDuration
+  };
+
   const Workouts = mongoose.model("Workouts", WorkoutsSchema);
   
   module.exports = Workouts;

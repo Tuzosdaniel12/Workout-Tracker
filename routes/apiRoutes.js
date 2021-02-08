@@ -26,10 +26,15 @@ router.get("/api/workouts/range", async (req, res)=>{
 })
 
 router.put("/api/workouts/:id", async ({body, params}, res)=>{
-   
+    //console.log(body, params)
     try {
-        const updateWorkout = await Workouts.where({ _id: params.id }).update({exercises: body});
-        console.log(updateWorkout)
+        const workout = await Workouts.find({});
+
+        const WorkOuts = new Workouts(body);
+
+        WorkOuts.totalDuration(workout);
+
+        const updateWorkout = await Workouts.where({ _id: params.id }).update({exercises: WorkOuts});
 
         res.json(updateWorkout);
 
@@ -40,10 +45,16 @@ router.put("/api/workouts/:id", async ({body, params}, res)=>{
 
 router.post("/api/workouts", async ({body}, res)=>{
     try {
-        const createWorkout = await Workouts.create(body);
+        const workout = await Workouts.find({});
+
+        const WorkOuts = new Workouts(body);
+
+        WorkOuts.totalDuration(workout);
+
+        const createWorkout = await Workouts.create(WorkOuts);
         res.json(createWorkout);
     } catch (error) {
-        res.json(err);
+        res.json(error);
     }
 })
 
