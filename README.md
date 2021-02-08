@@ -49,7 +49,7 @@ The user should be able to:
 
 ## Test
 
-[![image](images\workout-tracker-image.png)](https://todo-workout-fitness-tracker.herokuapp.com/)
+[![image](images/workout-tracker-image.png)](https://todo-workout-fitness-tracker.herokuapp.com/)
 
 ## Credits
 
