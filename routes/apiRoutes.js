@@ -8,6 +8,7 @@ router.get("/api/workouts", async (req, res) =>{
         res.json(workout)
 
     } catch (error) {
+        
         res.json(error);
     }
 });
@@ -15,7 +16,7 @@ router.get("/api/workouts", async (req, res) =>{
 router.get("/api/workouts/range", async (req, res)=>{
     try {
         
-        const rangeWorkouts = await Workouts.find({}).limit(5);
+        const rangeWorkouts = await Workouts.find({}).limit(7);
 
         res.json(rangeWorkouts)
 
@@ -26,15 +27,9 @@ router.get("/api/workouts/range", async (req, res)=>{
 })
 
 router.put("/api/workouts/:id", async ({body, params}, res)=>{
-    //console.log(body, params)
     try {
-        const workout = await Workouts.find({});
 
-        const WorkOuts = new Workouts(body);
-
-        WorkOuts.totalDuration(workout);
-
-        const updateWorkout = await Workouts.where({ _id: params.id }).update({exercises: WorkOuts});
+        const updateWorkout = await Workouts.where({ _id: params.id }).update({exercises: body});
 
         res.json(updateWorkout);
 
@@ -45,13 +40,15 @@ router.put("/api/workouts/:id", async ({body, params}, res)=>{
 
 router.post("/api/workouts", async ({body}, res)=>{
     try {
+        console.log(body)
         const workout = await Workouts.find({});
 
         const WorkOuts = new Workouts(body);
 
-        WorkOuts.totalDuration(workout);
+        WorkOuts.setTotalDuration(workout);
 
         const createWorkout = await Workouts.create(WorkOuts);
+
         res.json(createWorkout);
     } catch (error) {
         res.json(error);

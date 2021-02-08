@@ -18,7 +18,15 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //mongoose database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout_tracker_db", { useNewUrlParser: true });
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://localhost/workout_tracker_db", 
+        { 
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: false
+        }
+    );
 
 //require routes
 app.use(require("./routes"));

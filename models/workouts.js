@@ -7,6 +7,7 @@ const WorkoutsSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    totalDuration: Number, 
     exercises: [
         {
             type: {
@@ -35,18 +36,17 @@ const WorkoutsSchema = new Schema({
             distance: {
                 type: Number
             },
-            totalDuration: {
-                type: Number
-            } 
-        }
+            
+        },
+
     ]
   });
   
-  WorkoutsSchema.methods.totalDuration = async function(collections) {
+  WorkoutsSchema.methods.setTotalDuration = async function(collections) {
 
-    this.totalDuration = await collections.filter(collection => collection.exercises[0] !== undefined)
+    this.totalDuration = parseInt(await collections.filter(collection => collection.exercises[0] !== undefined)
                                           .map(collection => collection.exercises[0]) 
-                                          .reduce((accumulator, exercise) => accumulator + exercise.duration,0)
+                                          .reduce((accumulator, exercise) => accumulator + exercise.duration,0))
 
     return this.totalDuration
   };
