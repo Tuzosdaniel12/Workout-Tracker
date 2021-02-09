@@ -35,18 +35,22 @@ router.get("/api/workouts/range", async (req, res)=>{
 })
 
 router.put("/api/workouts/:id", async ({body, params}, res)=>{
-    console.log(params)
+
     try {
         const updateWorkout = 
-            await Workouts.findByIdAndUpdate(
+        await Workouts.findByIdAndUpdate(
 
-                params.id, 
+            params.id, 
 
-                { $push: { exercises: body } }, 
+            { 
+                $push: { exercises: body }, 
 
-                { new: true, runValidators: true } )
+                $inc: { totalDuration: body.duration } 
+            }, 
 
-        res.json(updateWorkout);
+            { new: true, runValidators: true } )
+
+    res.json(updateWorkout);
 
     } catch (error) {
         res.json(error);
