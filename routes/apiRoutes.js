@@ -5,7 +5,7 @@ router.get("/api/workouts", async (req, res) =>{
     try {
         const workout = 
             await Workouts
-            
+
                 .find({});
 
         res.json(workout)
@@ -35,8 +35,8 @@ router.get("/api/workouts/range", async (req, res)=>{
 })
 
 router.put("/api/workouts/:id", async ({body, params}, res)=>{
+    console.log(params)
     try {
-
         const updateWorkout = 
             await Workouts.where(
 
@@ -64,7 +64,7 @@ router.post("/api/workouts", async ({body}, res)=>{
         const createWorkout = 
             await Workouts
 
-                .create(WorkOuts);
+                .create(body);
 
         res.json(createWorkout);
 
