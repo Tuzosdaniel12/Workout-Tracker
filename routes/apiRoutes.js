@@ -38,7 +38,7 @@ router.put("/api/workouts/:id", async ({body, params}, res)=>{
     console.log(params)
     try {
         const updateWorkout = 
-            await Workouts.where(
+            await Workouts.findByIdAndUpdate(
 
                 params.id, 
 
@@ -55,16 +55,16 @@ router.put("/api/workouts/:id", async ({body, params}, res)=>{
 
 router.post("/api/workouts", async ({body}, res)=>{
     try {
-        // const workout = await Workouts.find({});
+        const workout = await Workouts.find({});
 
-        // const WorkOuts = new Workouts(body);
+        const WorkOuts = new Workouts(body);
 
-        // WorkOuts.setTotalDuration(workout);
+        WorkOuts.setTotalDuration(workout);
 
         const createWorkout = 
             await Workouts
 
-                .create(body);
+                .create(WorkOuts);
 
         res.json(createWorkout);
 
