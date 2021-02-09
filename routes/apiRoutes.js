@@ -3,7 +3,10 @@ const { Workouts } = require("../models");
 
 router.get("/api/workouts", async (req, res) =>{
     try {
-        const workout = await Workouts.find({});
+        const workout = 
+            await Workouts
+            
+                .find({});
 
         res.json(workout)
 
@@ -16,7 +19,12 @@ router.get("/api/workouts", async (req, res) =>{
 router.get("/api/workouts/range", async (req, res)=>{
     try {
         
-        const rangeWorkouts = await Workouts.find({}).limit(7);
+        const rangeWorkouts = 
+            await Workouts
+
+                .find({})
+
+                .limit(7);
 
         res.json(rangeWorkouts)
 
@@ -29,7 +37,14 @@ router.get("/api/workouts/range", async (req, res)=>{
 router.put("/api/workouts/:id", async ({body, params}, res)=>{
     try {
 
-        const updateWorkout = await Workouts.where({ _id: params.id }).update({exercises: body});
+        const updateWorkout = 
+            await Workouts.where(
+
+                params.id, 
+
+                { $push: { exercises: body } }, 
+
+                { new: true, runValidators: true } )
 
         res.json(updateWorkout);
 
@@ -46,9 +61,13 @@ router.post("/api/workouts", async ({body}, res)=>{
 
         // WorkOuts.setTotalDuration(workout);
 
-        const createWorkout = await Workouts.create(WorkOuts);
+        const createWorkout = 
+            await Workouts
+
+                .create(WorkOuts);
 
         res.json(createWorkout);
+
     } catch (error) {
         res.json(error);
     }
