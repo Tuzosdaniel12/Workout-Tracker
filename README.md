@@ -49,6 +49,8 @@ The user should be able to:
 
 ## Test
 
+PRESS Image to live Demo
+
 [![image](images/workout-tracker-image.png)](https://todo-workout-fitness-tracker.herokuapp.com/)
 
 ## Credits
